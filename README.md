@@ -8,6 +8,7 @@
 '&' - корабль
 
 2) Игровое поле:
+
 ![image](https://user-images.githubusercontent.com/55847006/176190127-aebec612-c036-4a42-a3ae-65e3018bef68.png)
        
 3) Состояния игры:

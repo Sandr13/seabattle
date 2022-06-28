@@ -47,19 +47,19 @@ char draw_symbol[EFIELD_INFO_END] = {
 
 // задаём вид игрового поля
 char *field[] = {
-       "  ABCDEFGHIJ       ABCDEFGHIJ ",
-       " *----------*     *----------*",
-       "0|          |    0|          |",
-       "1|          |    1|          |",
-       "2|          |    2|          |",
-       "3|          |    3|          |",
-       "4|          |    4|          |",
-       "5|          |    5|          |",
-       "6|          |    6|          |",
-       "7|          |    7|          |",
-       "8|          |    8|          |",
-       "9|          |    9|          |",
-       " *----------*     *----------*"
+        "  ABCDEFGHIJ       ABCDEFGHIJ ",
+        " *----------*     *----------*",
+        "0|          |    0|          |",
+        "1|          |    1|          |",
+        "2|          |    2|          |",
+        "3|          |    3|          |",
+        "4|          |    4|          |",
+        "5|          |    5|          |",
+        "6|          |    6|          |",
+        "7|          |    7|          |",
+        "8|          |    8|          |",
+        "9|          |    9|          |",
+        " *----------*     *----------*"
 };
 
 void draw_field(eFieldInfo *, unsigned short);
@@ -96,7 +96,7 @@ int main() {
                 break;
             }
             case DRAW: {
-                //system("cls"); // очистка консоли
+                system("cls"); // очистка консоли
 
                 // отрисовка данных, зависимо от хода
                 tmp = (player == PLAYER_1) ? p1_data : p2_data;
@@ -110,8 +110,26 @@ int main() {
             }
             case PROCESSING: {
                 // обработка игровых данных
+                printf("%cc", target_x, target_y);
 
-                player = ~player; // смена хода
+                if (player == PLAYER_1) {
+                    if (p2_data[target_y * 10 + target_x] == EMPTY || p2_data[target_y * 10 + target_x] == SHOT)  {
+                        p2_data[target_y * 10 + target_x] = SHOT;
+                        player = ~player; // смена хода
+                    }
+                    else if (p2_data[target_y * 10 + target_x] == SHIP || p2_data[target_y * 10 + target_x] == STRIKE)  {
+                        p2_data[target_y * 10 + target_x] = STRIKE;
+                    }
+                }
+                else {
+                    if (p1_data[target_y * 10 + target_x] == EMPTY || p1_data[target_y * 10 + target_x] == SHOT)  {
+                        p1_data[target_y * 10 + target_x] = SHOT;
+                        player = ~player; // смена хода
+                    }
+                    else if (p1_data[target_y * 10 + target_x] == SHIP || p1_data[target_y * 10 + target_x] == STRIKE)  {
+                        p1_data[target_y * 10 + target_x] = STRIKE;
+                    }
+                }
 
                 game_state = DRAW;
                 break;
@@ -220,3 +238,4 @@ unsigned char get_target_position(unsigned char *ap_x, unsigned char *ap_y) {
     }
     return 0;
 }
+
